@@ -1,0 +1,53 @@
+Agregações
+
+1. MATCH (c:Country)<-[:IN_COUNTRY]-(a:AirportCity)
+RETURN c.name AS Country, COUNT(a) AS AirportCount
+ORDER BY AirportCount DESC;
+
+2. MATCH (a:AirportCity)
+RETURN AVG(a.altitude) AS AverageAltitude;
+
+3. MATCH (a1:AirportCity)-[:HAS_ROUTE]->(a2:AirportCity)
+RETURN COUNT(*) AS TotalRoutes;
+
+4. MATCH (co:Continent)<-[:ON_CONTINENT]-(c:Country)<-[:IN_COUNTRY]-(a:AirportCity)
+RETURN co.name AS Continent, COUNT(a) AS AirportCount
+ORDER BY AirportCount DESC;
+
+5. MATCH (a:AirportCity)
+RETURN MAX(a.altitude) AS MaxAltitude, MIN(a.altitude) AS MinAltitude;
+
+Funções Matemáticas
+
+1. MATCH (a1:AirportCity {code: 'JFK'}), (a2:AirportCity {code: 'LAX'})
+RETURN abs(a1.altitude - a2.altitude) AS AltitudeDifference;
+
+2. MATCH (a:AirportCity)
+RETURN sqrt(AVG(a.altitude)) AS SqrtAverageAltitude;
+
+3. MATCH (a:AirportCity)
+RETURN a.code AS AirportCode, pow(a.altitude, 2) AS AltitudeSquared;
+
+4. MATCH (a:AirportCity)
+RETURN sum(a.altitude) AS TotalAltitude;
+
+5. MATCH (a:AirportCity)-[:HAS_ROUTE]->()
+WITH a, COUNT(*) AS RouteCount
+RETURN sum(a.altitude * RouteCount) / sum(RouteCount) AS WeightedAverageAltitude;
+
+Funções de String
+
+1. MATCH (a:AirportCity)
+RETURN a.code + ' - ' + a.city AS AirportCity;
+
+2. MATCH (a:AirportCity)
+RETURN substring(a.code, 0, 3) AS AirportCode;
+
+3. MATCH (a:AirportCity)
+RETURN replace(a.city, ' ', '_') AS CityWithUnderscores;
+
+4. MATCH (a:AirportCity)
+RETURN toUpper(a.city) AS UppercaseCity;
+
+5. MATCH (a:AirportCity)
+RETURN a.city AS City, contains(a.city, 'City') AS ContainsCity;

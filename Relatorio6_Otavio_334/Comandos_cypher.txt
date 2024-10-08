@@ -1,0 +1,39 @@
+Questão 1
+
+1. MATCH (n) RETURN n;
+2. MATCH (g:Game) WHERE g.ano > 2012 RETURN g;
+3. MATCH (g:Game) WHERE g.genero = 'Terror' RETURN g;
+4. MATCH (j:Jurado)-[r:JOGOU]->(g:Game) WHERE r.nota >= 7 RETURN j, r, g;
+
+Questão 2
+
+1.
+CREATE (g1:Game {titulo: 'Minecraft', genero: 'Sandbox', ano: 2011});
+CREATE (g2:Game {titulo: 'Terraria', genero: 'Action-Adventure', ano: 2011});
+CREATE (g3:Game {titulo: 'Pokemon', genero: 'RPG', ano: 1996});
+CREATE (g4:Game {titulo: 'Counter Strike', genero: 'Shooter', ano: 2000});
+
+2.
+CREATE (j1:Jurado {nome: 'Rafaela'});
+CREATE (j2:Jurado {nome: 'Miguel'});
+CREATE (j3:Jurado {nome: 'Larissa'});
+
+3.
+MATCH (j:Jurado {nome: 'Rafaela'}), (g:Game {titulo: 'Minecraft'})
+CREATE (j)-[:JOGOU {nota: 9, horas: 300}]->(g);
+
+MATCH (j:Jurado {nome: 'Rafaela'}), (g:Game {titulo: 'Terraria'})
+CREATE (j)-[:JOGOU {nota: 8, horas: 50}]->(g);
+
+MATCH (j:Jurado {nome: 'Miguel'}), (g:Game {titulo: 'Pokemon'})
+CREATE (j)-[:JOGOU {nota: 7, horas: 200}]->(g);
+
+MATCH (j:Jurado {nome: 'Miguel'}), (g:Game {titulo: 'Counter Strike'})
+CREATE (j)-[:JOGOU {nota: 6, horas: 100}]->(g);
+
+MATCH (j:Jurado {nome: 'Larissa'}), (g:Game {titulo: 'Minecraft'})
+CREATE (j)-[:JOGOU {nota: 10, horas: 400}]->(g);
+
+MATCH (j:Jurado {nome: 'Larissa'}), (g:Game {titulo: 'Terraria'})
+CREATE (j)-[:JOGOU {nota: 4, horas: 10}]->(g);
+
